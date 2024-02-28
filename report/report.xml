@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="report_knjige" model="ir.actions.report">
+                <field name="name">Račun</field>
+                <field name="model">knjiznica.knjiga</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">knjiznica.report_knjige</field>
+                <field name="report_file">knjiznica.report_knjige</field>
+                <field name="binding_model_id" ref="model_knjiznica_knjiga"/>
+                <field name="binding_type">report</field>
+        </record>
+</odoo>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="knjiga_search" model="ir.ui.view">
+        <field name="name">knjiznica.knjiga.search</field>
+        <field name="model">knjiznica.knjiga</field>
+        <field name="arch" type="xml">
+            <search string="Knjige" >
+                <field name="naziv"/>
+                <field name="autor"/>
+                <field name="nakladnik"/>
+                <field name="zanr"/>
+                <separator/>
+                <group>
+                    <filter name="group_naziv" string="Naziv" icon="terp-partner" context="{'group_by':'naziv'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="knjiga_tree" model="ir.ui.view">
+        <field name="name">knjiznica.knjiga.tree</field>
+        <field name="model">knjiznica.knjiga</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="button_ukupna_zakasnina" string="Zakasnina" class="btn-primary"
+                             type="object"/>
+                </header>
+                <field name="naziv"/>
+                <field name="autor"/>
+                <field name="nakladnik"/>
+                <field name="zanr"/>
+                <field name="state"/>
+                <field name="zaduzio" groups="base.group_erp_manager"/>
+                <field name="zaduzena_datuma" groups="base.group_erp_manager"/>
+                <field name="zaduzena_do"/>
+                <field name="zakasnina" groups="base.group_erp_manager" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="knjiga_form" model="ir.ui.view">
+        <field name="name">knjiznica.knjiga.form</field>
+        <field name="model">knjiznica.knjiga</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_zaduzi" name="button_zaduzi" string="Zaduži" class="btn-primary"
+                            groups="__export__.res_groups_15_f49466e5" states="nije_zaduzena,uredi" type="object"/>
+                     <button id="button_vraceno" name="button_vraceno" string="Vraćeno" states="zaduzena,uredi"
+                             groups="base.group_erp_manager" type="object"/>
+                    <button id="button_uredi" name="button_uredi" string="Uredi" states="nije_zaduzena,zaduzena"
+                             groups="base.group_erp_manager" type="object"/>
+                    <button id="button_zakasnina" name="button_zakasnina" string="Provjeri zakasninu" states="zaduzena"
+                             type="object"/>
+                    <field  name="state" widget="statusbar" statusbar_visible="nije_zaduzena,zaduzena"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="naziv" attrs="{'readonly':['|',('state','=','zaduzena'),('state','=','nije_zaduzena')]}"/>
+                            <field name="autor" options="{'no_create': True, 'no_edit': True} "
+                                   attrs="{'readonly':['|',('state','=','zaduzena'),('state','=','nije_zaduzena')]}"/>
+                            <field name="nakladnik" options="{'no_create': True, 'no_edit': True}"
+                                   attrs="{'readonly':['|',('state','=','zaduzena'),('state','=','nije_zaduzena')]}"/>
+                            <field name="zanr" options="{'no_create': True, 'no_edit': True}"
+                                   attrs="{'readonly':['|',('state','=','zaduzena'),('state','=','nije_zaduzena')]}"/>
+                        </group>
+                        <group>
+                            <field name="zaduzena_datuma" readonly="1" states="zaduzena"/>
+                            <field name="zaduzena_do" readonly="1" states="zaduzena"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="knjiga_action" model="ir.actions.act_window">
+        <field name="name">Knjige</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">knjiznica.knjiga</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_group_naziv': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Knjige
+            </p>
+        </field>
+    </record>
+
+    <record id="autor_tree" model="ir.ui.view">
+        <field name="name">knjiznica.autor.tree</field>
+        <field name="model">knjiznica.autor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="naziv"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="autor_form" model="ir.ui.view">
+        <field name="name">knjiznica.autor.form</field>
+        <field name="model">knjiznica.autor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="naziv"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="autor_action" model="ir.actions.act_window">
+        <field name="name">Autori</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">knjiznica.autor</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Autori
+            </p>
+        </field>
+    </record>
+
+    <record id="nakladnik_tree" model="ir.ui.view">
+        <field name="name">knjiznica.nakladnik.tree</field>
+        <field name="model">knjiznica.nakladnik</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="naziv"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="nakladnik_form" model="ir.ui.view">
+        <field name="name">knjiznica.nakladnik.form</field>
+        <field name="model">knjiznica.nakladnik</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="naziv"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="nakladnik_action" model="ir.actions.act_window">
+        <field name="name">Nakladnici</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">knjiznica.nakladnik</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Nakladnici
+            </p>
+        </field>
+    </record>
+
+    <record id="zanr_tree" model="ir.ui.view">
+        <field name="name">knjiznica.zanr.tree</field>
+        <field name="model">knjiznica.zanr</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="naziv"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zanr_form" model="ir.ui.view">
+        <field name="name">knjiznica.zanr.form</field>
+        <field name="model">knjiznica.zanr</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="naziv"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="zanr_action" model="ir.actions.act_window">
+        <field name="name">Žanr</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">knjiznica.zanr</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Žanrovi
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="knjiznica_root"
+              name="Knjižnica"
+              sequence="10"/>
+
+    <menuitem id="knjiznica_knjiga_root"
+              name="Knjige"
+              parent="knjiznica_root"
+              action="knjiga_action"
+              sequence="10"/>
+
+    <menuitem id="knjiznica_autor_root"
+              groups="base.group_erp_manager"
+              name="Autori"
+              parent="knjiznica_root"
+              action="autor_action"
+              sequence="11"/>
+
+    <menuitem id="knjiznica_nakladnik_root"
+              groups="base.group_erp_manager"
+              name="Nakladnici"
+              parent="knjiznica_root"
+              action="nakladnik_action"
+              sequence="12"/>
+
+    <menuitem id="knjiznica_zanr_root"
+              groups="base.group_erp_manager"
+              name="Žanr"
+              parent="knjiznica_root"
+              action="zanr_action"
+              sequence="13"/>
+</odoo>

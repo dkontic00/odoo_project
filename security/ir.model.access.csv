@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_knjiznica_knjiga,access.knjiznica.knjiga,model_knjiznica_knjiga,,1,1,1,1
+access_knjiznica_autor,access.knjiznica.autor,model_knjiznica_autor,,1,1,1,1
+access_knjiznica_nakladnik,access.knjiznica.nakladnik,model_knjiznica_nakladnik,,1,1,1,1
+access_knjiznica_zanr,access.knjiznica.zanr,model_knjiznica_zanr,,1,1,1,1
